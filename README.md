@@ -13,6 +13,10 @@ The goal of this challenge is to use Python and API keys to request information 
 REMEMBER TO CHECK THE HINTS/CONSIDERATIONS ON THE CHALLENGE PAGE
 Requirement 1
 -use OpenWeatherMap API to get weather data from the cities list in starter code.
+
+* API call from https://openweathermap.org/current; https://openweathermap.org/current#name
+* trying to build the base url
+
 -scatter plots for the following relationships:
    -latitude vs temp
    -lat vs humidity
