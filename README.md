@@ -18,6 +18,8 @@ Requirement 1
 * trying to build the base url
 
 -scatter plots for the following relationships:
+**6-2 Activities
+
    -latitude vs temp
    -lat vs humidity
    -lat vs cloudiness
@@ -25,6 +27,8 @@ Requirement 1
    
 Requirement 2
 -compute linear regression for each relationship. separate the plots into Northern Hemi (NH, >=0 deg lat) and Southern Hemi (SH, <0 deg lat). define a fcn to to create the linear regr plots.
+**6-2 Activities
+
 -create a series of scatter plots. include linear regr line, model's formula, and r values (see pic in challenge page).
 -create the following plots:
    -NH: temp vs lat
