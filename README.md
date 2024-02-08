@@ -10,92 +10,60 @@ The goal of this challenge is to use Python and API keys to request information 
 
 ***********
 ### Part  1: WeatherPy
-REMEMBER TO CHECK THE HINTS/CONSIDERATIONS ON THE CHALLENGE PAGE
-Requirement 1
--use OpenWeatherMap API to get weather data from the cities list in starter code.
 
-* API call from https://openweathermap.org/current; https://openweathermap.org/current#name
-* trying to build the base url
+#### Requirement 1
+* Use OpenWeatherMap API to get weather data from the cities list in starter code.
 
--scatter plots for the following relationships:
-**6-2 Activities
+This part of the challenge required using the OpenWeatherMap API to request and process weather data to find relationships between latitudes and various weather conditions (specifically temperature, humidity, cloudiness, and wind speed.
 
-   -latitude vs temp
-   -lat vs humidity
-   -lat vs cloudiness
-   -lat vs wind speed
+To start, cities were randomly generated from the citipy library then fed into OpenWeatherMap API to request and respond their coordinates, maximum temperatures, humidity, cloudiness, wind speeds, and country into a JSON format. This data was then used to create a Pandas dataframe where all elements could be easily referenced for plots, as well as saved to a CSV.
+
+Next, scatter plots were created to show the following relationships:
+   - latitude vs temp
+   - latitude vs humidity
+   - latitude vs cloudiness
+   - latitude vs wind speed
    
-Requirement 2
--compute linear regression for each relationship. separate the plots into Northern Hemi (NH, >=0 deg lat) and Southern Hemi (SH, <0 deg lat). define a fcn to to create the linear regr plots.
-**6-2 Activities
+In this section, the northern hemisphere (NH) and southern hemisphere (SH) were not taken into consideration separately. The most prominent graph, Latitude vs Temperature (All Cities), shows a clear relationship between latitude and temperature, with higher temperatures being more closely concentrated around the equator and decreasing as latitude increases or decreases (see cell 10 in Jupyter Notebook). The points create a distinct parabolic shape.
 
--create a series of scatter plots. include linear regr line, model's formula, and r values (see pic in challenge page).
--create the following plots:
-   -NH: temp vs lat
-   -SH: temp vs lat
+The remaining plots show that latitude/distance from the equator and the weather conditions were far less concentrated around any specific area, suggesting that latitude has less effect on humidity, cloudiness, and wind speed, unless other factors are taken into consideration (such as bodies of water or landmasses).
    
-   -NH: humidity vs lat
-   -SH: humidity vs lat
+#### Requirement 2
+* Compute linear regression for each relationship. Separate the plots into northern hemisphere (NH, >=0 deg lat) and southern hemisphere (SH, <0 deg lat). Define a function to calculate linear regression for each set of relationships.
+
+First, a function to find the linear regression of each relationship was defined. It is coded in such a way that the function becomes a simple callout in each set of relationships (instead of typing it out every time and creating clutter in the notebook). The function includes variables for finding the slope, y-intercept, r-value, p-value, and standard error and applying them to create the scatter plots.
+
+The function also configures various aspects of the plots, such as x- and y-labels, titles, color of the points, and placing the line equation on each plot. In addition, the funtion also prints the regress values, line equation, and r-value with the scatter plots.
+
+The next step was to create separate dataframes for the NH and SH, simply by filtering the latitudes for greater than/equal to 0 (NH) and less than 0 (SH).
+
+The following plots were created to showcase relationships between:
+   -NH: temp vs latitude
+   -SH: temp vs latitude
    
-   -NH: cloudiness vs lat
-   -SH: cloudiness vs lat
+   -NH: humidity vs latitude
+   -SH: humidity vs latitude
    
-   -NH: wind speed vs lat
-   -SH: wind spped vs lat
+   -NH: cloudiness vs latitude
+   -SH: cloudiness vs latitude
    
-   -*after each pair of plots, explain what the linear regr is modeling. describe any relationships you notice and any other findings*
+   -NH: wind speed vs latitude
+   -SH: wind spped vs latitude
    
-### GRADING REQUIREMENTS
-#### PLOTS TO SHOW RELATIONSHIP B/T WEATHER VARS AND LAT
--Use the OpenWeatherMap API to retrieve weather data from the cities list generated in the started code (10 points)
-
--Create a scatter plot to showcase the relationship between Latitude vs. Temperature (5 points)
-
--Create a scatter plot to showcase the relationship between Latitude vs. Humidity (5 points)
-
--Create a scatter plot to showcase the relationship between Latitude vs. Cloudiness (5 points)
-
--Create a scatter plot to showcase the relationship between Latitude vs. Wind Speed (5 points)
-
-#### LINEAR REGR FOR EACH RELATIONSHIP
--Linear regression scatter plot for Northern Hemisphere: Temperature (C) vs. Latitude (5 points)
-
--Linear regression scatter plot for Southern Hemisphere: Temperature (C) vs. Latitude (5 points)
-
--Linear regression scatter plot for Northern Hemisphere: Humidity (%) vs. Latitude (5 points)
-
--Linear regression scatter plot for Southern Hemisphere: Humidity (%) vs. Latitude (5 points)
-
--Linear regression scatter plot for Northern Hemisphere: Cloudiness (%) vs. Latitude (5 points)
-
--Linear regression scatter plot for Southern Hemisphere: Cloudiness (%) vs. Latitude (5 points)
-
--Linear regression scatter plot for Northern Hemisphere: Wind Speed (m/s) vs. Latitude (5 points)
-
--Linear regression scatter plot for Southern Hemisphere: Wind Speed (m/s) vs. Latitude (5 points)
+In general, as was demonstrated in the first requirement, there is a more distinct relationship between latitude and temperature than latitude and the other weather conditions. It is likely that more variables (such as distance to bodies of water, land masses, time of year, etc.) would need to be included to draw better conclusions about how latitude affects certain weather conditions.
+   
    
 *************
 ### Part 2: VacationPy
-REMEMBER TO CHECK THE HINTS/CONSIDERATIONS ON THE CHALLENGE PAGE
-*reference the images on the challenge page*
+* Use geoViews and Geoapify API to take the list of cities generated in WeatherPy and narrow down vacation destinations by ideal weather conditions, as well as find hotels.
 
-1. create a map that displays a point for every city in the city_data_df. the size of the point should be the humidity in each city.
+First the city data from WeatherPy was imported and put into a dataframe to access the city information at a glance. Next a world map was generated with hvplot and displays the cities as points. The size of each point is determined by the humidity data from the dataframe.
 
-2. narrow down city_data_df to find your ideal weather condition (such as: max temp 21<max temp<27 deg, wind speed <4.5 m/s, zero cloudiness, etm.). adjust specs as you like but have a reasonable limit to the number of rows your API requests return.
+Next the weather conditions were wittled down by defining specific ranges for each, based on the coder's preferences, and any null values were dropped.
 
-3. create new df hotel_df to store the city, country, coordinates, and humidity.
+Once the ideal conditions were filtered, a new data frame was created with an empty column to display hotel names for each city. The hotel column was populated by sending a request to Geoapify API with parameters for limits, radius (in meters), categories (hotels), and the city coordinates for each row. Once the data was retrieved, the results were stored in the hotel dataframe.
 
-4. for each city, use Geoapify API to find first hotel located within 10,000 m of your coordinates.
-    6-3, activity 4
+Finally, a new plot was configured showing only the cities that met the ideal conditions, with the added benefit of adding the city's country and hotel information in the hover tool.
 
-5. add hotel name and the country as add'l info in the hover message for each city on the map.
-   
-### GRADING REQUIREMENTS
--Create a map that displays a point for every city in the city_data_df DataFrame (5 points)
-
--Narrow down the city_data_df DataFrame to find your ideal weather condition (5 points)
-
--For each city in the hotel_df DataFrame, use the Geoapify API to find the first hotel located within 10,000 metres of your coordinates (10 points)
-
--Add the hotel name and the country as additional information in the hover message for each city in the map. (10 points)
-
+### Sources
+In this challege I relied heavily on the Xpert Learning Assistant tool, tutoring, office hours, and activities from Module 6 to complete the assignment.
