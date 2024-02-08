@@ -86,6 +86,7 @@ REMEMBER TO CHECK THE HINTS/CONSIDERATIONS ON THE CHALLENGE PAGE
 3. create new df hotel_df to store the city, country, coordinates, and humidity.
 
 4. for each city, use Geoapify API to find first hotel located within 10,000 m of your coordinates.
+    6-3, activity 4
 
 5. add hotel name and the country as add'l info in the hover message for each city on the map.
    
